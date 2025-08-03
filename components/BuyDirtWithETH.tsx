@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { useAbstractClient } from "@abstract-foundation/agw-react"
 import { useAccount } from "wagmi"
+import { buyDIRTWithETH } from "@/lib/contracts"
 
 interface BuyDirtWithETHProps {
   onDirtPurchased: (amount: number) => void
@@ -41,23 +42,10 @@ export function BuyDirtWithETH({ onDirtPurchased }: BuyDirtWithETHProps) {
     setIsLoading(true)
 
     try {
-      // For now, simulate the purchase since we don't have a deployed contract yet
-      // In production, this would call a smart contract
-      if (abstractClient) {
-        // Example of how to send a transaction with Abstract client
-        // const hash = await abstractClient.sendTransaction({
-        //   to: "0xDIRT_CONTRACT_ADDRESS",
-        //   value: parseEther(ethAmount),
-        //   data: "0x", // encoded function call
-        // })
-
-        // Simulate transaction delay
-        await new Promise((resolve) => setTimeout(resolve, 2000))
-      } else {
-        // Fallback simulation
-        await new Promise((resolve) => setTimeout(resolve, 2000))
-      }
-
+      // Call smart contract to buy DIRT
+      const tx = await buyDIRTWithETH(ethAmount)
+      console.log("Transaction hash:", tx.hash)
+      
       const dirtAmount = calculateDirtAmount(ethAmount)
       onDirtPurchased(dirtAmount)
 
