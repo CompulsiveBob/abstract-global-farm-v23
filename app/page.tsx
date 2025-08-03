@@ -106,7 +106,7 @@ export default function LoginPage() {
 
 
         {/* Left side - Bearish Logo */}
-        <div className="hidden lg:flex flex-1 justify-center items-center flex-col space-y-4 mt-8">
+        <div className="hidden lg:flex flex-1 justify-center items-center flex-col space-y-4 mt-4">
           {/* Bearish Logo floating transparently */}
           <div className="mb-6">
             <Image 
@@ -120,7 +120,7 @@ export default function LoginPage() {
         </div>
 
         {/* Right side - GUGO Farmer */}
-        <div className="hidden lg:flex flex-1 justify-center items-center flex-col space-y-4 mt-32">
+        <div className="hidden lg:flex flex-1 justify-center items-center flex-col space-y-4 mt-16">
           <div className="text-center">
             <h3 className="text-6xl font-bold text-amber-900 font-mono tracking-wider drop-shadow-lg">WE FARM</h3>
           </div>
