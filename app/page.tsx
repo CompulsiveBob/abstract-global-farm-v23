@@ -71,16 +71,16 @@ export default function LoginPage() {
               <div className="space-y-3">
                 <h3 className="text-lg font-bold text-amber-900 font-mono text-center">🎮 How To Play</h3>
                 <div className="bg-green-100 border-2 border-green-600 rounded-lg p-3">
-                  <h4 className="font-mono font-bold text-green-800 mb-1 text-sm">Phase 1: Stake & Plant</h4>
+                  <h4 className="font-mono font-bold text-green-800 mb-1 text-sm">Season 1: Stake & Earn</h4>
                   <p className="text-xs font-mono text-green-700">
                     • Stake $GUGO/$BURR to earn $DIRT
                     <br />• Buy $DIRT with ETH (0.01 ETH = 50 $DIRT)
                     <br />• Spend $DIRT to buy seeds
-                    <br />• Plant seeds in your farm
+                    <br /
                   </p>
                 </div>
                 <div className="bg-blue-100 border-2 border-blue-600 rounded-lg p-3">
-                  <h4 className="font-mono font-bold text-blue-800 mb-1 text-sm">Phase 2: 7-Day Growth</h4>
+                  <h4 className="font-mono font-bold text-blue-800 mb-1 text-sm">Season 2: 7-Day Growth</h4>
                   <p className="text-xs font-mono text-blue-700">
                     • Daily interactions: 🌊 Water, ✂️ Prune, 🎵 Sing
                     <br />• Random outcomes affect growth
@@ -88,11 +88,11 @@ export default function LoginPage() {
                   </p>
                 </div>
                 <div className="bg-purple-100 border-2 border-purple-600 rounded-lg p-3">
-                  <h4 className="font-mono font-bold text-purple-800 mb-1 text-sm">Phase 3: Mint NFT</h4>
+                  <h4 className="font-mono font-bold text-purple-800 mb-1 text-sm">Season 3: Mint NFT</h4>
                   <p className="text-xs font-mono text-purple-700">
                     • Harvest mature plants
                     <br />• Mint unique Plant NFTs
-                    <br />• Trade or collect rare varieties
+                    <br />• Buy Sell Collect Trade Breed!
                   </p>
                 </div>
               </div>
