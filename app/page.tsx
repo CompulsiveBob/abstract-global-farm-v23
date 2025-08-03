@@ -37,6 +37,19 @@ export default function LoginPage() {
         </div>
       </header>
 
+      {/* Bearish Logo Section */}
+      <div className="flex justify-center py-8">
+        <div className="bg-gradient-to-r from-green-100 to-amber-100 border-4 border-green-600 rounded-lg p-6 shadow-2xl">
+          <Image 
+            src="/images/bearish-logo.png" 
+            alt="Bearish - GUGO & BURR Mascots" 
+            width={400} 
+            height={200} 
+            className="pixelated"
+          />
+        </div>
+      </div>
+
       {/* Main Content */}
       <div className="flex items-center justify-between p-4 min-h-[calc(100vh-120px)]">
         {/* Left side - Login Card */}
