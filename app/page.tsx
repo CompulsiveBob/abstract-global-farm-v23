@@ -75,14 +75,15 @@ export default function LoginPage() {
                   <p className="text-xs font-mono text-green-700">
                     • Stake $GUGO/$BURR to earn $DIRT
                     <br />• Buy $DIRT with ETH (0.01 ETH = 50 $DIRT)
-                    <br />• Spend $DIRT to buy seeds
-                    <br />• Plant seeds in your farm
+                    <br />• Mint seed NFTs with $DIRT
+                    <br />• Collect rare seed varieties
                   </p>
                 </div>
                 <div className="bg-blue-100 border-2 border-blue-600 rounded-lg p-3">
-                  <h4 className="font-mono font-bold text-blue-800 mb-1 text-sm">Season 2: 7-Day Growth</h4>
+                  <h4 className="font-mono font-bold text-blue-800 mb-1 text-sm">Season 2: Plant & Grow</h4>
                   <p className="text-xs font-mono text-blue-700">
-                    • Daily interactions: 🌊 Water, ✂️ Prune, 🎵 Sing
+                    • Plant your seed NFTs in farm plots
+                    <br />• Daily interactions: 🌊 Water, ✂️ Prune, 🎵 Sing
                     <br />• Random outcomes affect growth
                     <br />• Healthy plants = Rare Plants
                   </p>
@@ -127,7 +128,7 @@ function GameDashboard() {
   const [stakeAmount, setStakeAmount] = useState("")
   const [selectedToken, setSelectedToken] = useState("GUGO")
   const [burrStaked, setBurrStaked] = useState(0)
-  const [seeds, setSeeds] = useState<Array<{ id: string; type: string; rarity: string; emoji: string }>>([])
+
   const [plants, setPlants] = useState<
     Array<{
       id: string
@@ -142,7 +143,16 @@ function GameDashboard() {
     }>
   >([])
   const [nfts, setNfts] = useState<
-    Array<{ id: string; type: "seed" | "plant"; name: string; rarity: string; emoji: string; mintedDate: Date }>
+    Array<{ 
+      id: string; 
+      type: "seed" | "plant"; 
+      name: string; 
+      rarity: string; 
+      emoji: string; 
+      mintedDate: Date;
+      seedType?: string;
+      isPlanted?: boolean;
+    }>
   >([])
   const [lastDirtUpdate, setLastDirtUpdate] = useState(Date.now())
   const { address } = useAccount()
@@ -196,7 +206,7 @@ function GameDashboard() {
     setDirtEarned((prev) => prev + amount)
   }
 
-  const handleBuySeedPack = () => {
+  const handleMintSeed = () => {
     if (dirtEarned >= 15) {
       setDirtEarned((prev) => prev - 15)
 
@@ -222,16 +232,7 @@ function GameDashboard() {
         emoji = "🍀"
       }
 
-      const newSeed = {
-        id: Date.now().toString(),
-        type: seedType,
-        rarity,
-        emoji,
-      }
-
-      setSeeds((prev) => [...prev, newSeed])
-
-      // Mint seed NFT
+      // Create seed NFT
       const seedNFT = {
         id: `seed-${Date.now()}`,
         type: "seed" as const,
@@ -239,19 +240,21 @@ function GameDashboard() {
         rarity,
         emoji,
         mintedDate: new Date(),
+        seedType,
+        isPlanted: false,
       }
 
       setNfts((prev) => [...prev, seedNFT])
 
-      alert(`🎉 You got a ${rarity} ${seedType} seed! NFT minted!`)
+      alert(`🎉 Minted a ${rarity} ${seedType} Seed NFT!`)
     } else {
-      alert("Not enough $DIRT! You need 15 $DIRT to buy a seed pack.")
+      alert("Not enough $DIRT! You need 15 $DIRT to mint a seed NFT.")
     }
   }
 
   const handlePlantSeed = (plotId: number, seedId: string) => {
-    const seed = seeds.find((s) => s.id === seedId)
-    if (!seed) return
+    const seedNFT = nfts.find((nft) => nft.id === seedId && nft.type === "seed" && !nft.isPlanted)
+    if (!seedNFT) return
 
     // Check if plot is empty
     const existingPlant = plants.find((p) => p.plotId === plotId)
@@ -263,19 +266,28 @@ function GameDashboard() {
     const newPlant = {
       id: Date.now().toString(),
       plotId,
-      type: seed.type,
-      rarity: seed.rarity,
-      emoji: seed.emoji,
+      type: seedNFT.seedType || "Unknown",
+      rarity: seedNFT.rarity,
+      emoji: seedNFT.emoji,
       plantedDate: new Date(),
       daysSincePlanted: 0,
       health: 50,
       interactions: [],
+      plantedSeedId: seedId,
     }
 
     setPlants((prev) => [...prev, newPlant])
-    setSeeds((prev) => prev.filter((s) => s.id !== seedId))
+    
+    // Mark seed NFT as planted
+    setNfts((prev) => 
+      prev.map((nft) => 
+        nft.id === seedId 
+          ? { ...nft, isPlanted: true }
+          : nft
+      )
+    )
 
-    alert(`🌱 ${seed.type} planted in Plot ${plotId}!`)
+    alert(`🌱 ${seedNFT.seedType} planted in Plot ${plotId}!`)
   }
 
   const handlePlantInteraction = (plantId: string, action: "water" | "prune" | "sing") => {
@@ -504,19 +516,21 @@ function GameDashboard() {
             {/* Buy DIRT with ETH Panel */}
             <BuyDirtWithETH onDirtPurchased={handleDirtPurchased} />
 
-            {/* Seed Inventory Panel */}
-            {seeds.length > 0 && (
+            {/* Seed NFT Inventory Panel */}
+            {nfts.filter(nft => nft.type === "seed" && !nft.isPlanted).length > 0 && (
               <Card className="bg-amber-50/95 border-4 border-amber-800 md:col-span-2">
                 <CardContent className="p-6">
-                  <h2 className="text-2xl font-bold text-amber-900 font-mono mb-4 text-center">🌱 Seed Inventory</h2>
+                  <h2 className="text-2xl font-bold text-amber-900 font-mono mb-4 text-center">🌱 Seed NFT Collection</h2>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {seeds.map((seed) => (
-                      <div key={seed.id} className="bg-green-100 border-2 border-green-600 rounded-lg p-3 text-center">
-                        <div className="text-2xl mb-1">{seed.emoji}</div>
-                        <div className="font-mono font-bold text-green-800 text-sm">{seed.type}</div>
-                        <div className="text-xs font-mono text-green-600">{seed.rarity}</div>
-                      </div>
-                    ))}
+                    {nfts
+                      .filter(nft => nft.type === "seed" && !nft.isPlanted)
+                      .map((seedNFT) => (
+                        <div key={seedNFT.id} className="bg-green-100 border-2 border-green-600 rounded-lg p-3 text-center">
+                          <div className="text-2xl mb-1">{seedNFT.emoji}</div>
+                          <div className="font-mono font-bold text-green-800 text-sm">{seedNFT.name}</div>
+                          <div className="text-xs font-mono text-green-600">{seedNFT.rarity}</div>
+                        </div>
+                      ))}
                   </div>
                 </CardContent>
               </Card>
@@ -574,18 +588,20 @@ function GameDashboard() {
                       ) : (
                         <div className="text-center">
                           <span className="font-mono text-amber-600 text-sm">Plot {plotId}</span>
-                          {seeds.length > 0 && (
+                          {nfts.filter(nft => nft.type === "seed" && !nft.isPlanted).length > 0 && (
                             <select
                               onChange={(e) => e.target.value && handlePlantSeed(plotId, e.target.value)}
                               className="mt-2 text-xs p-1 rounded"
                               defaultValue=""
                             >
-                              <option value="">Plant seed...</option>
-                              {seeds.map((seed) => (
-                                <option key={seed.id} value={seed.id}>
-                                  {seed.emoji} {seed.type}
-                                </option>
-                              ))}
+                              <option value="">Plant seed NFT...</option>
+                              {nfts
+                                .filter(nft => nft.type === "seed" && !nft.isPlanted)
+                                .map((seedNFT) => (
+                                  <option key={seedNFT.id} value={seedNFT.id}>
+                                    {seedNFT.emoji} {seedNFT.name} ({seedNFT.rarity})
+                                  </option>
+                                ))}
                             </select>
                           )}
                         </div>
@@ -669,19 +685,19 @@ function GameDashboard() {
                 height={300}
                 className="mx-auto pixelated mb-6"
               />
-              <h2 className="text-3xl font-bold text-amber-900 font-mono mb-4">🌱 SEED SHOP</h2>
-              <p className="text-amber-700 font-mono mb-6">Purchase seeds with your earned $DIRT to start growing!</p>
+              <h2 className="text-3xl font-bold text-amber-900 font-mono mb-4">🌱 SEED MINTING</h2>
+              <p className="text-amber-700 font-mono mb-6">Mint seed NFTs with your earned $DIRT to start growing!</p>
               <div className="flex justify-center">
                 <div className="bg-green-100 border-2 border-green-600 rounded-lg p-6 max-w-sm">
                   <div className="text-center mb-4">
                     <div className="text-4xl mb-2">🌱</div>
-                    <h3 className="font-mono font-bold text-green-800 text-xl">Mystery Seed Pack</h3>
-                    <p className="text-sm font-mono text-green-600 mt-2">Random seed inside!</p>
+                    <h3 className="font-mono font-bold text-green-800 text-xl">Mint Seed NFT</h3>
+                    <p className="text-sm font-mono text-green-600 mt-2">Random seed NFT with rarity!</p>
                   </div>
 
                   <div className="bg-green-50 border border-green-400 rounded p-3 mb-4">
                     <p className="text-xs font-mono text-green-700 text-center">
-                      📦 Contains 1 random seed
+                      🎨 Mint 1 random seed NFT
                       <br />🌽 40% Corn (Common)
                       <br />🥕 30% Carrot (Rare)
                       <br />🌻 20% Sunflower (Legendary)
@@ -694,11 +710,11 @@ function GameDashboard() {
                   </div>
 
                   <Button
-                    onClick={handleBuySeedPack}
+                    onClick={handleMintSeed}
                     disabled={dirtEarned < 15}
                     className="w-full bg-green-600 hover:bg-green-500 text-white font-mono text-lg py-3 disabled:opacity-50"
                   >
-                    🎲 Buy Mystery Pack ({dirtEarned >= 15 ? "✅" : "❌"} 15 $DIRT)
+                    🌱 Mint Seed NFT ({dirtEarned >= 15 ? "✅" : "❌"} 15 $DIRT)
                   </Button>
                 </div>
               </div>
