@@ -31,7 +31,7 @@ export default function LoginPage() {
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <Image src="/images/agf-logo.png" alt="AGF Logo" width={50} height={50} className="pixelated" />
-            <h1 className="text-2xl font-bold text-amber-100 font-mono">ABSTRACT GLOBAL FARM</h1>
+            <h1 className="text-2xl font-bold text-amber-100 font-mono">ABSTRACT GLOBAL FARMS</h1>
           </div>
           <WalletConnect />
         </div>

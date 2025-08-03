@@ -42,7 +42,7 @@ export function WalletConnect() {
 
   return (
     <div className="flex items-center justify-center space-x-4">
-      <div className="text-amber-900 font-mono font-bold text-lg">
+      <div className="text-amber-100 font-mono font-bold text-lg">
         ENTER FARM
         <span className="ml-2">→</span>
       </div>
