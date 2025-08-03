@@ -76,7 +76,7 @@ export default function LoginPage() {
                     • Stake $GUGO/$BURR to earn $DIRT
                     <br />• Buy $DIRT with ETH (0.01 ETH = 50 $DIRT)
                     <br />• Spend $DIRT to buy seeds
-                    <br /
+                    <br />• Plant seeds in your farm
                   </p>
                 </div>
                 <div className="bg-blue-100 border-2 border-blue-600 rounded-lg p-3">
