@@ -103,10 +103,10 @@ export default function LoginPage() {
           </Card>
         </div>
 
-        {/* Right side - Bearish Logo and GUGO Farmer */}
+        {/* Left side - Bearish Logo */}
         <div className="hidden lg:flex flex-1 justify-center items-center flex-col space-y-4 mt-32">
-          {/* Bearish Logo positioned above GUGO WE FARM */}
-          <div className="bg-gradient-to-r from-green-100 to-amber-100 border-4 border-green-600 rounded-lg p-4 shadow-2xl mb-6">
+          {/* Bearish Logo floating transparently on the left */}
+          <div className="mb-6">
             <Image 
               src="/images/bearish-logo.png" 
               alt="Bearish - GUGO & BURR Mascots" 
@@ -115,7 +115,10 @@ export default function LoginPage() {
               className="pixelated"
             />
           </div>
-          
+        </div>
+
+        {/* Right side - GUGO Farmer */}
+        <div className="hidden lg:flex flex-1 justify-center items-center flex-col space-y-4 mt-32">
           <div className="text-center">
             <h3 className="text-6xl font-bold text-amber-900 font-mono tracking-wider drop-shadow-lg">$GUGO WE FARM</h3>
           </div>
