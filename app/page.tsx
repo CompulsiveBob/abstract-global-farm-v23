@@ -18,7 +18,7 @@ export default function LoginPage() {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-between p-4"
+      className="min-h-screen"
       style={{
         backgroundImage: "url('/images/desert-background.png')",
         backgroundSize: "cover",
@@ -26,84 +26,95 @@ export default function LoginPage() {
         backgroundRepeat: "no-repeat",
       }}
     >
-      {/* Left side - Login Card */}
-      <div className="flex-1 flex justify-center">
-        <Card className="bg-amber-50/95 border-4 border-amber-800 shadow-2xl max-w-md w-full">
-          <CardContent className="p-8 text-center space-y-6">
-            {/* Main Logo */}
-            <div className="flex justify-center">
-              <Image
-                src="/images/agf-logo.png"
-                alt="Abstract Global Farms Logo"
-                width={150}
-                height={150}
-                className="pixelated"
-              />
-            </div>
-
-            {/* Title */}
-            <div className="space-y-2">
-              <h1 className="text-3xl font-bold text-amber-900 font-mono tracking-wider">ABSTRACT</h1>
-              <h2 className="text-2xl font-bold text-green-700 font-mono tracking-wider">GLOBAL FARM</h2>
-              <p className="text-amber-700 font-mono text-sm">Stake • Grow • Mint • Earn</p>
-            </div>
-
-            {/* Mascot Characters */}
-            <div className="flex justify-center items-center space-x-4">
-              <Image src="/images/duck.png" alt="GUGO Duck" width={60} height={60} className="pixelated" />
-              <Image src="/images/bearish-bear.png" alt="Bearish Bear" width={60} height={60} className="pixelated" />
-            </div>
-
-            {/* How To Play */}
-            <div className="space-y-3">
-              <h3 className="text-lg font-bold text-amber-900 font-mono text-center">🎮 How To Play</h3>
-              <div className="bg-green-100 border-2 border-green-600 rounded-lg p-3">
-                <h4 className="font-mono font-bold text-green-800 mb-1 text-sm">Phase 1: Stake & Plant</h4>
-                <p className="text-xs font-mono text-green-700">
-                  • Stake $GUGO/$BURR to earn $DIRT
-                  <br />• Buy $DIRT with ETH (0.01 ETH = 50 $DIRT)
-                  <br />• Spend $DIRT to buy seeds
-                  <br />• Plant seeds in your farm
-                </p>
-              </div>
-              <div className="bg-blue-100 border-2 border-blue-600 rounded-lg p-3">
-                <h4 className="font-mono font-bold text-blue-800 mb-1 text-sm">Phase 2: 7-Day Growth</h4>
-                <p className="text-xs font-mono text-blue-700">
-                  • Daily interactions: 🌊 Water, ✂️ Prune, 🎵 Sing
-                  <br />• Random outcomes affect growth
-                  <br />• Healthy plants = Rare Plants
-                </p>
-              </div>
-              <div className="bg-purple-100 border-2 border-purple-600 rounded-lg p-3">
-                <h4 className="font-mono font-bold text-purple-800 mb-1 text-sm">Phase 3: Mint NFT</h4>
-                <p className="text-xs font-mono text-purple-700">
-                  • Harvest mature plants
-                  <br />• Mint unique Plant NFTs
-                  <br />• Trade or collect rare varieties
-                </p>
-              </div>
-            </div>
-
-            {/* Wallet Connect */}
-            <WalletConnect />
-
-            <p className="text-xs text-amber-600 font-mono">Connect your Abstract Global Wallet to start farming!</p>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Right side - GUGO Farmer */}
-      <div className="hidden lg:flex flex-1 justify-center items-center flex-col space-y-4 mt-32">
-        <div className="text-center">
-          <h3 className="text-6xl font-bold text-amber-900 font-mono tracking-wider drop-shadow-lg">WE FARM</h3>
+      {/* Header with Wallet Connect in top right */}
+      <header className="bg-amber-900/90 border-b-4 border-amber-700 p-4">
+        <div className="max-w-6xl mx-auto flex items-center justify-between">
+          <div className="flex items-center space-x-4">
+            <Image src="/images/agf-logo.png" alt="AGF Logo" width={50} height={50} className="pixelated" />
+            <h1 className="text-2xl font-bold text-amber-100 font-mono">ABSTRACT GLOBAL FARM</h1>
+          </div>
+          <WalletConnect />
         </div>
-        <Image
-          src="/images/gugo-farmer.png"
-          alt="GUGO Farmer"
-          width={300}
-          height={400}
-          className="pixelated drop-shadow-2xl"
-        />
+      </header>
+
+      {/* Main Content */}
+      <div className="flex items-center justify-between p-4 min-h-[calc(100vh-120px)]">
+        {/* Left side - Login Card */}
+        <div className="flex-1 flex justify-center">
+          <Card className="bg-amber-50/95 border-4 border-amber-800 shadow-2xl max-w-md w-full">
+            <CardContent className="p-8 text-center space-y-6">
+              {/* Main Logo */}
+              <div className="flex justify-center">
+                <Image
+                  src="/images/agf-logo.png"
+                  alt="Abstract Global Farms Logo"
+                  width={150}
+                  height={150}
+                  className="pixelated"
+                />
+              </div>
+
+              {/* Title */}
+              <div className="space-y-2">
+                <h1 className="text-3xl font-bold text-amber-900 font-mono tracking-wider">ABSTRACT</h1>
+                <h2 className="text-2xl font-bold text-green-700 font-mono tracking-wider">GLOBAL FARMS</h2>
+                <p className="text-amber-700 font-mono text-sm">Stake • Grow • Mint • Earn</p>
+              </div>
+
+              {/* Mascot Characters */}
+              <div className="flex justify-center items-center space-x-4">
+                <Image src="/images/duck.png" alt="GUGO Duck" width={60} height={60} className="pixelated" />
+                <Image src="/images/bearish-bear.png" alt="Bearish Bear" width={60} height={60} className="pixelated" />
+              </div>
+
+              {/* How To Play */}
+              <div className="space-y-3">
+                <h3 className="text-lg font-bold text-amber-900 font-mono text-center">🎮 How To Play</h3>
+                <div className="bg-green-100 border-2 border-green-600 rounded-lg p-3">
+                  <h4 className="font-mono font-bold text-green-800 mb-1 text-sm">Phase 1: Stake & Plant</h4>
+                  <p className="text-xs font-mono text-green-700">
+                    • Stake $GUGO/$BURR to earn $DIRT
+                    <br />• Buy $DIRT with ETH (0.01 ETH = 50 $DIRT)
+                    <br />• Spend $DIRT to buy seeds
+                    <br />• Plant seeds in your farm
+                  </p>
+                </div>
+                <div className="bg-blue-100 border-2 border-blue-600 rounded-lg p-3">
+                  <h4 className="font-mono font-bold text-blue-800 mb-1 text-sm">Phase 2: 7-Day Growth</h4>
+                  <p className="text-xs font-mono text-blue-700">
+                    • Daily interactions: 🌊 Water, ✂️ Prune, 🎵 Sing
+                    <br />• Random outcomes affect growth
+                    <br />• Healthy plants = Rare Plants
+                  </p>
+                </div>
+                <div className="bg-purple-100 border-2 border-purple-600 rounded-lg p-3">
+                  <h4 className="font-mono font-bold text-purple-800 mb-1 text-sm">Phase 3: Mint NFT</h4>
+                  <p className="text-xs font-mono text-purple-700">
+                    • Harvest mature plants
+                    <br />• Mint unique Plant NFTs
+                    <br />• Trade or collect rare varieties
+                  </p>
+                </div>
+              </div>
+
+              <p className="text-xs text-amber-600 font-mono">Connect your Abstract Global Wallet to start farming!</p>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Right side - GUGO Farmer */}
+        <div className="hidden lg:flex flex-1 justify-center items-center flex-col space-y-4 mt-32">
+          <div className="text-center">
+            <h3 className="text-6xl font-bold text-amber-900 font-mono tracking-wider drop-shadow-lg">$GUGO WE FARM</h3>
+          </div>
+          <Image
+            src="/images/gugo-farmer.png"
+            alt="GUGO Farmer"
+            width={300}
+            height={400}
+            className="pixelated drop-shadow-2xl"
+          />
+        </div>
       </div>
     </div>
   )

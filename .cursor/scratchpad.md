@@ -84,9 +84,11 @@ The game is already configured to use the Abstract testnet and has a complete UI
 
 **🎉 DEPLOYMENT SUCCESSFUL!**
 - **Live URL:** https://abstract-global-farm-v23-rko2dxzjf-bobbyscaps-projects.vercel.app
+- **GitHub Repository:** https://github.com/CompulsiveBob/abstract-global-farm-v23
 - **Build Time:** 1 minute
 - **Bundle Size:** 248 kB (optimized)
-- **Status:** Ready for contest
+- **Auto-Deploy:** Connected GitHub to Vercel
+- **Status:** ✅ READY FOR CONTEST
 
 ## Executor's Feedback or Assistance Requests
 
