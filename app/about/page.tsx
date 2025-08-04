@@ -42,7 +42,7 @@ export default function AboutPage() {
             height={200}
             className="pixelated mx-auto mb-6"
           />
-          <h1 className="text-4xl font-bold text-amber-900 font-mono mb-4">🌾 The Story of GUGO</h1>
+          <h1 className="text-4xl font-bold text-amber-900 font-mono mb-4">🌾 The Legend of $GUGO</h1>
           <h2 className="text-2xl font-bold text-green-700 font-mono">From Charts to Crops</h2>
         </div>
 
@@ -52,15 +52,11 @@ export default function AboutPage() {
             <CardContent className="p-8">
               <div className="prose prose-lg max-w-none">
                 <p className="text-amber-900 font-mono leading-relaxed mb-4">
-                  In the chaotic world of meme coins, where tokens pump and dump by the hour and the market favors no one, one coin stood out. Not because it promised utility. Not because it had a roadmap. But because it just… wouldn't stop running.
+                  $GUGO born in the Abstract world of meme coins in 2025, where tokens pumped and dumped by the hour and the market favored no one, amazingly $GUGO not only survived he ran. Not because he promised utility. Not because he had a roadmap. But because it just… wouldn't stop running.
                 </p>
                 
                 <p className="text-amber-900 font-mono leading-relaxed mb-4">
-                  That coin was <span className="font-bold text-green-700">$GUGO</span>.
-                </p>
-
-                <p className="text-amber-900 font-mono leading-relaxed mb-4">
-                  Born from nothing but hype and hope, GUGO became an unstoppable force. He didn't just climb the charts — he dominated them. He blew past DOGE, dunked on PEPE, leapt over SHIBA, and finally flipped $BTC, something no meme had ever dreamed of.
+                  $GUGO became an unstoppable force. He didn't just climb the charts — he dominated them. He blew past DOGE, dunked on PEPE, leapt over SHIBA, and finally flipped $BTC, something no meme had ever dreamed of.
                 </p>
 
                 <p className="text-amber-900 font-mono leading-relaxed mb-4">
@@ -68,12 +64,12 @@ export default function AboutPage() {
                 </p>
 
                 <div className="text-center my-6">
-                  <p className="text-xl font-bold text-green-700 font-mono">GUGO became the world currency and stopped running!</p>
+                  <p className="text-xl font-bold text-green-700 font-mono">$GUGO became the world reserve currency and finally stopped running!</p>
                   <p className="text-lg font-bold text-amber-700 font-mono">GUGO had a new mission.</p>
                 </div>
 
                 <p className="text-amber-900 font-mono leading-relaxed mb-4">
-                  He traded green candles for greener pastures. Left the noise of the market behind and settled down and staked a plot of land to start farming at The Abstract Global Farms.
+                  He traded green candles for greener pastures. Left the noise of the market behind and settled down to staked a plot of land and start farming.
                 </p>
 
                 <p className="text-amber-900 font-mono leading-relaxed mb-4">
@@ -81,7 +77,7 @@ export default function AboutPage() {
                 </p>
 
                 <p className="text-amber-900 font-mono leading-relaxed mb-4">
-                  It was here that GUGO met the Bearish homies — from the NFT trenches, weary of the pump-and-dump life. Together, they decided to grow something real. Not just coins, but crops. Not just value, but community.
+                  It was here that GUGO met the Bearish bears — from the NFT trenches, Together, they decided to grow something real. Not just coins, but crops. Not just value, but community.
                 </p>
               </div>
             </CardContent>
@@ -102,11 +98,11 @@ export default function AboutPage() {
                 </p>
 
                 <p className="text-green-900 font-mono leading-relaxed mb-4">
-                  Players start by staking there $GUGO and $BURR and receiving the in game currency $DIRT. $DIRT can also be bought for $ETH. $DIRT is used to buy mystery Seed pack NFTs.
+                  Players start by staking $GUGO and $BURR and receiving the in game currency $DIRT. $DIRT can also be bought for $ETH. $DIRT is used to buy mystery Seed pack NFTs.
                 </p>
 
                 <p className="text-green-900 font-mono leading-relaxed mb-4">
-                  Your seeds are planted in your farm and burned. Every day, they tend their crops through daily actions like watering, pruning, and even singing to their plants. Each interaction has a different effect and after seven days matures into a unique tradable Plant NFTs.
+                  Your seeds are planted in your farm burning the NFT. Every day, you tend your crops through daily actions like watering, pruning, and singing. Each interaction has a different effect and after seven days the plant matures setting the metadata for the NFT.
                 </p>
 
                 <p className="text-green-900 font-mono leading-relaxed mb-4">
@@ -153,6 +149,81 @@ export default function AboutPage() {
               
               <div className="text-center mt-6">
                 <p className="text-lg font-bold text-blue-800 font-mono">And it all runs through the Abstract Global Wallet!</p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* The Art Section */}
+          <Card className="bg-purple-50/95 border-4 border-purple-800 shadow-2xl">
+            <CardContent className="p-8">
+              <h2 className="text-3xl font-bold text-purple-800 font-mono text-center mb-6">🎨 The Art</h2>
+              
+              <div className="prose prose-lg max-w-none">
+                <p className="text-purple-900 font-mono leading-relaxed mb-4">
+                  Web3 is a revolution of art, culture, and finance. Abstract Global Farms puts culture and finance at the forefront — but above all, art is most important.
+                </p>
+
+                <p className="text-purple-900 font-mono leading-relaxed mb-4">
+                  There will be art! The plan is to contract both traditional and digital artists — along with devs — to create a unique plant collection, each one inked from the plants you grow in Season One. These initial NFTs will lay the foundation for future crossbreeding.
+                </p>
+
+                <p className="text-purple-900 font-mono leading-relaxed mb-4">
+                  Season One is all about the farming. But in Season Two, things get interesting — game mechanics kick in, and players begin creating new seed types through breeding and innovation.
+                </p>
+
+                <p className="text-purple-900 font-mono leading-relaxed mb-4">
+                  The ultimate goal?
+                </p>
+
+                <p className="text-purple-900 font-mono leading-relaxed mb-4">
+                  To build a collection so visually striking and original that it catches the eye of collectors who don't even play the game.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* The Founder Section */}
+          <Card className="bg-amber-50/95 border-4 border-amber-800 shadow-2xl">
+            <CardContent className="p-8">
+              <h2 className="text-3xl font-bold text-amber-800 font-mono text-center mb-6">👨‍🌾 The Founder</h2>
+              
+              <div className="grid md:grid-cols-2 gap-8 items-center">
+                <div className="prose prose-lg max-w-none">
+                  <p className="text-amber-900 font-mono leading-relaxed mb-4">
+                    Bobbyscaps is a Web3 idealist who refuses to believe that blockchain technology is just a niche. He is a passionate collector who still holds collections that he started as a child. From baseball cards to sculpted kettlebells, he collects it all.
+                  </p>
+
+                  <p className="text-amber-900 font-mono leading-relaxed mb-4">
+                    Building in Web3 has been his dream since learning about the technology, and finally, it has come to fruition — thanks to AI.
+                  </p>
+
+                  <p className="text-amber-900 font-mono leading-relaxed mb-4">
+                    <strong>Disclosure:</strong> Bobbyscaps is a Bearish and $GUGO holder, but he is not selling.
+                  </p>
+                </div>
+                
+                <div className="flex flex-col items-center space-y-4">
+                  <div className="text-center">
+                    <Image 
+                      src="/images/bearish-nft.png" 
+                      alt="Bearish NFT" 
+                      width={200} 
+                      height={200} 
+                      className="pixelated rounded-lg border-4 border-amber-600"
+                    />
+                    <p className="text-amber-800 font-mono text-sm mt-2">Bearish NFT</p>
+                  </div>
+                  <div className="text-center">
+                    <Image 
+                      src="/images/gugo-nft.png" 
+                      alt="GUGO NFT" 
+                      width={200} 
+                      height={200} 
+                      className="pixelated rounded-lg border-4 border-green-600"
+                    />
+                    <p className="text-green-800 font-mono text-sm mt-2">GUGO NFT</p>
+                  </div>
+                </div>
               </div>
             </CardContent>
           </Card>
