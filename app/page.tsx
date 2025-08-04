@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { WalletConnect } from "@/components/WalletConnect"
@@ -33,7 +34,14 @@ export default function LoginPage() {
             <Image src="/images/agf-logo.png" alt="AGF Logo" width={50} height={50} className="pixelated" />
             <h1 className="text-2xl font-bold text-amber-100 font-mono">ABSTRACT GLOBAL FARMS</h1>
           </div>
-          <WalletConnect />
+          <div className="flex items-center space-x-4">
+            <Link href="/about">
+              <Button className="bg-transparent hover:bg-amber-800/50 text-amber-100 font-mono border-2 border-amber-600">
+                About
+              </Button>
+            </Link>
+            <WalletConnect />
+          </div>
         </div>
       </header>
 
