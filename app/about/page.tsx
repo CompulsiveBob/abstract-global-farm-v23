@@ -10,7 +10,7 @@ export default function AboutPage() {
     <div
       className="min-h-screen"
       style={{
-        backgroundImage: "url('/images/desert-background.png')",
+        backgroundImage: "url('/images/mountain-landscape.png')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
