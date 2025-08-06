@@ -152,6 +152,8 @@ function GameDashboard() {
   const [stakeAmount, setStakeAmount] = useState("")
   const [selectedToken, setSelectedToken] = useState("GUGO")
   const [burrStaked, setBurrStaked] = useState(0)
+  const [showLoginPopup, setShowLoginPopup] = useState(true)
+  const [showSeedShopPopup, setShowSeedShopPopup] = useState(false)
 
   const [plants, setPlants] = useState<
     Array<{
@@ -386,6 +388,12 @@ function GameDashboard() {
     alert(`🎉 ${plant.type} harvested! ${plantNFT.rarity} Plant NFT minted!`)
   }
 
+  // Handle seed shop navigation
+  const handleSeedShopClick = () => {
+    setCurrentPage("shop")
+    setShowSeedShopPopup(true)
+  }
+
   // Calculate earning rates for display
   const gugoEarningRate = (gugoStaked / 7500) * 7.5 // DIRT per day
   const burrEarningRate = (burrStaked / 5000) * 5.0 // DIRT per day
@@ -458,7 +466,7 @@ function GameDashboard() {
             🚜 My Farm
           </Button>
           <Button
-            onClick={() => setCurrentPage("shop")}
+            onClick={handleSeedShopClick}
             variant={currentPage === "shop" ? "default" : "outline"}
             className="font-mono bg-orange-600 hover:bg-orange-500 text-white border-2 border-orange-700"
           >
@@ -776,6 +784,64 @@ function GameDashboard() {
               )}
             </CardContent>
           </Card>
+        )}
+
+        {/* Login Popup */}
+        {showLoginPopup && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+            <div className="bg-amber-50 border-4 border-amber-800 rounded-lg p-8 max-w-md mx-4 shadow-2xl">
+              <div className="text-center">
+                <Image
+                  src="/images/gugo-farmer.png"
+                  alt="GUGO Farmer"
+                  width={150}
+                  height={200}
+                  className="pixelated mx-auto mb-4"
+                />
+                <h3 className="text-2xl font-bold text-amber-900 font-mono mb-4">
+                  Welcome to Abstract Global Farms!
+                </h3>
+                <p className="text-amber-800 font-mono mb-6">
+                  I gave you some free $DIRT! Head to the seed shop to buy some seeds.
+                </p>
+                <Button
+                  onClick={() => setShowLoginPopup(false)}
+                  className="bg-amber-600 hover:bg-amber-500 text-white font-mono border-2 border-amber-700"
+                >
+                  Got it! 🚀
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Seed Shop Popup */}
+        {showSeedShopPopup && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+            <div className="bg-green-50 border-4 border-green-800 rounded-lg p-8 max-w-md mx-4 shadow-2xl">
+              <div className="text-center">
+                <Image
+                  src="/images/gugo-farmer.png"
+                  alt="GUGO Farmer"
+                  width={150}
+                  height={200}
+                  className="pixelated mx-auto mb-4"
+                />
+                <h3 className="text-2xl font-bold text-green-900 font-mono mb-4">
+                  Ready to Farm?
+                </h3>
+                <p className="text-green-800 font-mono mb-6">
+                  Mint seeds and plant them in your farm!
+                </p>
+                <Button
+                  onClick={() => setShowSeedShopPopup(false)}
+                  className="bg-green-600 hover:bg-green-500 text-white font-mono border-2 border-green-700"
+                >
+                  Let's Farm! 🌱
+                </Button>
+              </div>
+            </div>
+          </div>
         )}
       </main>
     </div>
