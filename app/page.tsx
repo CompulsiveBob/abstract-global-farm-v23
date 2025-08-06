@@ -595,35 +595,113 @@ function GameDashboard() {
               <p className="text-red-600 font-mono mb-6 text-sm font-bold">
                 ⚡ TESTING MODE: Plants grow 1 day per minute!
               </p>
-              <div className="grid grid-cols-3 gap-4 max-w-md mx-auto mb-6">
+              <div className="grid grid-cols-3 gap-6 max-w-2xl mx-auto mb-6">
                 {[1, 2, 3, 4, 5, 6].map((plotId) => {
                   const plant = plants.find((p) => p.plotId === plotId)
+                  
+                  // Dynamic plant visualization based on growth stage and health
+                  const getPlantVisual = (plant: any) => {
+                    const { daysSincePlanted, health, type, interactions } = plant
+                    const lastInteraction = interactions[interactions.length - 1]
+                    
+                    // Base plant emoji
+                    let plantEmoji = plant.emoji
+                    let plantSize = "text-2xl"
+                    
+                    // Growth stages (0-7 days)
+                    if (daysSincePlanted <= 1) {
+                      plantEmoji = "🌱" // Sprout
+                      plantSize = "text-lg"
+                    } else if (daysSincePlanted <= 3) {
+                      plantEmoji = "🌿" // Small plant
+                      plantSize = "text-xl"
+                    } else if (daysSincePlanted <= 5) {
+                      plantEmoji = "🌾" // Growing
+                      plantSize = "text-2xl"
+                    } else if (daysSincePlanted <= 6) {
+                      plantEmoji = "🌻" // Almost mature
+                      plantSize = "text-3xl"
+                    } else {
+                      plantEmoji = "🌽" // Mature (use original emoji for final stage)
+                      plantSize = "text-3xl"
+                    }
+                    
+                    // Health effects
+                    let healthColor = "text-green-600"
+                    if (health < 30) {
+                      healthColor = "text-red-600"
+                      plantEmoji = "🥀" // Wilting
+                    } else if (health < 60) {
+                      healthColor = "text-yellow-600"
+                      plantEmoji = "🌱" // Struggling
+                    }
+                    
+                                         // Interaction effects (show if plant was interacted with today)
+                     const recentInteraction = lastInteraction && 
+                       lastInteraction.day === daysSincePlanted
+                    
+                    if (recentInteraction) {
+                      switch (lastInteraction.action) {
+                        case "water":
+                          plantEmoji = "💧" + plantEmoji
+                          break
+                        case "prune":
+                          plantEmoji = "✂️" + plantEmoji
+                          break
+                        case "sing":
+                          plantEmoji = "🎵" + plantEmoji
+                          break
+                      }
+                    }
+                    
+                    return { plantEmoji, plantSize, healthColor }
+                  }
+                  
                   return (
                     <div
                       key={plotId}
-                      className="bg-amber-200 border-2 border-amber-600 rounded-lg p-4 h-32 flex flex-col items-center justify-center relative"
+                      className="relative bg-gradient-to-b from-amber-100 to-amber-200 border-4 border-amber-600 rounded-xl p-4 h-40 flex flex-col items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300"
+                      style={{
+                        backgroundImage: "url('/images/plot-background.png')",
+                        backgroundSize: "cover",
+                        backgroundPosition: "center"
+                      }}
                     >
                       {plant ? (
-                        <div className="text-center">
-                          <div className="text-2xl mb-1">{plant.emoji}</div>
-                          <div className="text-xs font-mono text-amber-700">Day {plant.daysSincePlanted}/7</div>
-                          <div className="text-xs font-mono text-amber-700">❤️ {plant.health}%</div>
-                          {plant.daysSincePlanted >= 7 && (
-                            <Button
-                              onClick={() => handleHarvest(plant.id)}
-                              className="mt-1 text-xs bg-green-500 hover:bg-green-400 px-2 py-1"
-                            >
-                              Harvest
-                            </Button>
-                          )}
+                        <div className="text-center relative">
+                          {(() => {
+                            const visual = getPlantVisual(plant)
+                            return (
+                              <>
+                                <div className={`${visual.plantSize} mb-2 ${visual.healthColor} animate-pulse`}>
+                                  {visual.plantEmoji}
+                                </div>
+                                <div className="text-xs font-mono text-amber-800 bg-amber-50/80 rounded px-2 py-1">
+                                  Day {plant.daysSincePlanted}/7
+                                </div>
+                                <div className="text-xs font-mono text-amber-800 bg-amber-50/80 rounded px-2 py-1 mt-1">
+                                  ❤️ {plant.health}%
+                                </div>
+                                {plant.daysSincePlanted >= 7 && (
+                                  <Button
+                                    onClick={() => handleHarvest(plant.id)}
+                                    className="mt-2 text-xs bg-green-500 hover:bg-green-400 text-white font-mono px-3 py-1 rounded-lg shadow-md"
+                                  >
+                                    🌾 Harvest
+                                  </Button>
+                                )}
+                              </>
+                            )
+                          })()}
                         </div>
                       ) : (
                         <div className="text-center">
-                          <span className="font-mono text-amber-600 text-sm">Plot {plotId}</span>
+                          <div className="text-4xl mb-2 text-amber-400">🌱</div>
+                          <span className="font-mono text-amber-700 text-sm font-bold">Plot {plotId}</span>
                           {nfts.filter(nft => nft.type === "seed" && !nft.isPlanted).length > 0 && (
                             <select
                               onChange={(e) => e.target.value && handlePlantSeed(plotId, e.target.value)}
-                              className="mt-2 text-xs p-1 rounded"
+                              className="mt-2 text-xs p-1 rounded bg-amber-50 border border-amber-300"
                               defaultValue=""
                             >
                               <option value="">Plant seed NFT...</option>
@@ -638,6 +716,11 @@ function GameDashboard() {
                           )}
                         </div>
                       )}
+                      
+                      {/* Plot number indicator */}
+                      <div className="absolute top-1 left-1 bg-amber-600 text-white text-xs font-mono px-2 py-1 rounded-full">
+                        {plotId}
+                      </div>
                     </div>
                   )
                 })}
