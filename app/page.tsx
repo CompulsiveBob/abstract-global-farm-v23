@@ -165,6 +165,9 @@ function GameDashboard() {
       plantedDate: Date
       daysSincePlanted: number
       health: number
+      color: number // 0-100 status bar
+      size: number // 0-100 status bar  
+      intricacy: number // 0-100 status bar
       interactions: Array<{ day: number; action: string; outcome: "positive" | "negative" | "neutral" }>
     }>
   >([])
@@ -178,6 +181,10 @@ function GameDashboard() {
       mintedDate: Date;
       seedType?: string;
       isPlanted?: boolean;
+      color?: number;
+      size?: number;
+      intricacy?: number;
+      health?: number;
     }>
   >([])
   const [lastDirtUpdate, setLastDirtUpdate] = useState(Date.now())
@@ -298,6 +305,9 @@ function GameDashboard() {
       plantedDate: new Date(),
       daysSincePlanted: 0,
       health: 50,
+      color: 25, // Starting color value
+      size: 25, // Starting size value
+      intricacy: 25, // Starting intricacy value
       interactions: [],
       plantedSeedId: seedId,
     }
@@ -329,34 +339,82 @@ function GameDashboard() {
           return plant
         }
 
-        // Random outcome
+        // Action-specific effects on status bars
         const random = Math.random()
         let outcome: "positive" | "negative" | "neutral"
+        let colorChange = 0
+        let sizeChange = 0
+        let intricacyChange = 0
         let healthChange = 0
 
-        if (random < 0.4) {
-          outcome = "positive"
-          healthChange = 10
-        } else if (random < 0.7) {
-          outcome = "neutral"
-          healthChange = 0
-        } else {
-          outcome = "negative"
-          healthChange = -5
+        // Determine outcome and changes based on action
+        if (action === "water") {
+          // Watering primarily affects COLOR
+          if (random < 0.6) {
+            outcome = "positive"
+            colorChange = 15
+            healthChange = 5
+          } else if (random < 0.8) {
+            outcome = "neutral"
+            colorChange = 5
+            healthChange = 2
+          } else {
+            outcome = "negative"
+            colorChange = -5
+            healthChange = -2
+          }
+        } else if (action === "prune") {
+          // Pruning primarily affects SIZE
+          if (random < 0.6) {
+            outcome = "positive"
+            sizeChange = 15
+            healthChange = 5
+          } else if (random < 0.8) {
+            outcome = "neutral"
+            sizeChange = 5
+            healthChange = 2
+          } else {
+            outcome = "negative"
+            sizeChange = -5
+            healthChange = -2
+          }
+        } else if (action === "sing") {
+          // Singing primarily affects INTRICACY
+          if (random < 0.6) {
+            outcome = "positive"
+            intricacyChange = 15
+            healthChange = 5
+          } else if (random < 0.8) {
+            outcome = "neutral"
+            intricacyChange = 5
+            healthChange = 2
+          } else {
+            outcome = "negative"
+            intricacyChange = -5
+            healthChange = -2
+          }
         }
 
+        // Apply changes with bounds
         const newHealth = Math.max(0, Math.min(100, plant.health + healthChange))
+        const newColor = Math.max(0, Math.min(100, plant.color + colorChange))
+        const newSize = Math.max(0, Math.min(100, plant.size + sizeChange))
+        const newIntricacy = Math.max(0, Math.min(100, plant.intricacy + intricacyChange))
 
         const actionEmojis = { water: "🌊", prune: "✂️", sing: "🎵" }
         const outcomeEmojis = { positive: "✅", negative: "❌", neutral: "⚪️" }
+        const actionNames = { water: "COLOR", prune: "SIZE", sing: "INTRICACY" }
 
         alert(
-          `${actionEmojis[action]} ${action.toUpperCase()}: ${outcomeEmojis[outcome]} ${outcome.toUpperCase()} effect! Health: ${plant.health} → ${newHealth}`,
+          `${actionEmojis[action]} ${action.toUpperCase()}: ${outcomeEmojis[outcome]} ${outcome.toUpperCase()} effect on ${actionNames[action]}!`,
         )
 
         return {
           ...plant,
           health: newHealth,
+          color: newColor,
+          size: newSize,
+          intricacy: newIntricacy,
           interactions: [...plant.interactions, { day: currentDay, action, outcome }],
         }
       }),
@@ -372,7 +430,7 @@ function GameDashboard() {
       return
     }
 
-    // Mint plant NFT
+    // Mint plant NFT with status bar metadata
     const plantNFT = {
       id: `plant-${Date.now()}`,
       type: "plant" as const,
@@ -380,6 +438,10 @@ function GameDashboard() {
       rarity: plant.health > 80 ? "Legendary" : plant.health > 60 ? "Rare" : "Common",
       emoji: plant.emoji,
       mintedDate: new Date(),
+      color: plant.color,
+      size: plant.size,
+      intricacy: plant.intricacy,
+      health: plant.health,
     }
 
     setNfts((prev) => [...prev, plantNFT])
@@ -682,6 +744,42 @@ function GameDashboard() {
                                 <div className="text-xs font-mono text-amber-800 bg-amber-50/80 rounded px-2 py-1 mt-1">
                                   ❤️ {plant.health}%
                                 </div>
+                                
+                                {/* Status Bars */}
+                                <div className="mt-2 space-y-1">
+                                  <div className="flex items-center justify-between text-xs">
+                                    <span className="font-mono text-blue-600">🎨</span>
+                                    <div className="flex-1 mx-2 bg-gray-200 rounded-full h-2">
+                                      <div 
+                                        className="bg-blue-500 h-2 rounded-full transition-all duration-300" 
+                                        style={{ width: `${plant.color}%` }}
+                                      ></div>
+                                    </div>
+                                    <span className="font-mono text-blue-600 text-xs">{plant.color}%</span>
+                                  </div>
+                                  
+                                  <div className="flex items-center justify-between text-xs">
+                                    <span className="font-mono text-green-600">📏</span>
+                                    <div className="flex-1 mx-2 bg-gray-200 rounded-full h-2">
+                                      <div 
+                                        className="bg-green-500 h-2 rounded-full transition-all duration-300" 
+                                        style={{ width: `${plant.size}%` }}
+                                      ></div>
+                                    </div>
+                                    <span className="font-mono text-green-600 text-xs">{plant.size}%</span>
+                                  </div>
+                                  
+                                  <div className="flex items-center justify-between text-xs">
+                                    <span className="font-mono text-purple-600">✨</span>
+                                    <div className="flex-1 mx-2 bg-gray-200 rounded-full h-2">
+                                      <div 
+                                        className="bg-purple-500 h-2 rounded-full transition-all duration-300" 
+                                        style={{ width: `${plant.intricacy}%` }}
+                                      ></div>
+                                    </div>
+                                    <span className="font-mono text-purple-600 text-xs">{plant.intricacy}%</span>
+                                  </div>
+                                </div>
                                 {plant.daysSincePlanted >= 7 && (
                                   <Button
                                     onClick={() => handleHarvest(plant.id)}
@@ -743,6 +841,42 @@ function GameDashboard() {
                           <span className="text-sm font-mono text-green-600">
                             Day {plant.daysSincePlanted}/7 | ❤️ {plant.health}%
                           </span>
+                        </div>
+                        
+                        {/* Status Bars */}
+                        <div className="mb-3 space-y-1">
+                          <div className="flex items-center justify-between text-xs">
+                            <span className="font-mono text-blue-600">🎨 Color</span>
+                            <div className="flex-1 mx-2 bg-gray-200 rounded-full h-2">
+                              <div 
+                                className="bg-blue-500 h-2 rounded-full transition-all duration-300" 
+                                style={{ width: `${plant.color}%` }}
+                              ></div>
+                            </div>
+                            <span className="font-mono text-blue-600 text-xs">{plant.color}%</span>
+                          </div>
+                          
+                          <div className="flex items-center justify-between text-xs">
+                            <span className="font-mono text-green-600">📏 Size</span>
+                            <div className="flex-1 mx-2 bg-gray-200 rounded-full h-2">
+                              <div 
+                                className="bg-green-500 h-2 rounded-full transition-all duration-300" 
+                                style={{ width: `${plant.size}%` }}
+                              ></div>
+                            </div>
+                            <span className="font-mono text-green-600 text-xs">{plant.size}%</span>
+                          </div>
+                          
+                          <div className="flex items-center justify-between text-xs">
+                            <span className="font-mono text-purple-600">✨ Intricacy</span>
+                            <div className="flex-1 mx-2 bg-gray-200 rounded-full h-2">
+                              <div 
+                                className="bg-purple-500 h-2 rounded-full transition-all duration-300" 
+                                style={{ width: `${plant.intricacy}%` }}
+                              ></div>
+                            </div>
+                            <span className="font-mono text-purple-600 text-xs">{plant.intricacy}%</span>
+                          </div>
                         </div>
                         <div className="flex gap-2 justify-center">
                           <Button
