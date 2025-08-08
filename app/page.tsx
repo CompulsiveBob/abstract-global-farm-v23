@@ -21,7 +21,7 @@ export default function LoginPage() {
     <div
       className="min-h-screen"
       style={{
-        backgroundImage: "url('/images/desert-background.png')",
+        backgroundImage: "url('/images/mountain-landscape.png')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -154,6 +154,7 @@ function GameDashboard() {
   const [burrStaked, setBurrStaked] = useState(0)
   const [showLoginPopup, setShowLoginPopup] = useState(true)
   const [showSeedShopPopup, setShowSeedShopPopup] = useState(false)
+  const [showFarmPopup, setShowFarmPopup] = useState(false)
 
   const [plants, setPlants] = useState<
     Array<{
@@ -456,6 +457,12 @@ function GameDashboard() {
     setShowSeedShopPopup(true)
   }
 
+  // Handle farm navigation
+  const handleFarmClick = () => {
+    setCurrentPage("farm")
+    setShowFarmPopup(true)
+  }
+
   // Calculate earning rates for display
   const gugoEarningRate = (gugoStaked / 7500) * 7.5 // DIRT per day
   const burrEarningRate = (burrStaked / 5000) * 5.0 // DIRT per day
@@ -464,7 +471,7 @@ function GameDashboard() {
     <div
       className="min-h-screen"
       style={{
-        backgroundImage: "url('/images/desert-background.png')",
+        backgroundImage: "url('/images/mountain-landscape.png')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -521,7 +528,7 @@ function GameDashboard() {
             🏠 Dashboard
           </Button>
           <Button
-            onClick={() => setCurrentPage("farm")}
+            onClick={handleFarmClick}
             variant={currentPage === "farm" ? "default" : "outline"}
             className="font-mono bg-green-600 hover:bg-green-500 text-white border-2 border-green-700"
           >
@@ -541,6 +548,14 @@ function GameDashboard() {
           >
             🎨 My NFTs
           </Button>
+          <Link href="/about">
+            <Button
+              variant="outline"
+              className="font-mono bg-blue-600 hover:bg-blue-500 text-white border-2 border-blue-700"
+            >
+              📖 About
+            </Button>
+          </Link>
         </div>
       </nav>
 
@@ -1055,6 +1070,35 @@ function GameDashboard() {
                   className="bg-green-600 hover:bg-green-500 text-white font-mono border-2 border-green-700"
                 >
                   Let's Farm! 🌱
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Farm Popup */}
+        {showFarmPopup && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+            <div className="bg-green-50 border-4 border-green-800 rounded-lg p-8 max-w-md mx-4 shadow-2xl">
+              <div className="text-center">
+                <Image
+                  src="/images/gugo-farmer.png"
+                  alt="GUGO Farmer"
+                  width={150}
+                  height={200}
+                  className="pixelated mx-auto mb-4"
+                />
+                <h3 className="text-2xl font-bold text-green-900 font-mono mb-4">
+                  Welcome to Your Farm!
+                </h3>
+                <p className="text-green-800 font-mono mb-6">
+                  Click the dropdown in your plots to plant seeds and scroll down to interact with your plants.
+                </p>
+                <Button
+                  onClick={() => setShowFarmPopup(false)}
+                  className="bg-green-600 hover:bg-green-500 text-white font-mono border-2 border-green-700"
+                >
+                  Got it! 🚜
                 </Button>
               </div>
             </div>
