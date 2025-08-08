@@ -658,13 +658,7 @@ function GameDashboard() {
                   ← Return to Dashboard
                 </Button>
               </div>
-              <Image
-                src="/images/my-farm.png"
-                alt="My Farm"
-                width={400}
-                height={300}
-                className="mx-auto pixelated mb-6"
-              />
+
               <h2 className="text-3xl font-bold text-amber-900 font-mono mb-4">🚜 MY FARM</h2>
               <p className="text-amber-700 font-mono mb-2">
                 Your farm is ready for planting! Buy seeds from the shop to get started.
@@ -942,13 +936,7 @@ function GameDashboard() {
                   ← Return to Dashboard
                 </Button>
               </div>
-              <Image
-                src="/images/seed-shop.png"
-                alt="Seed Shop"
-                width={400}
-                height={300}
-                className="mx-auto pixelated mb-6"
-              />
+
               <h2 className="text-3xl font-bold text-amber-900 font-mono mb-4">🌱 SEED MINTING</h2>
               <p className="text-amber-700 font-mono mb-6">Mint seed NFTs with your earned $DIRT to start growing!</p>
               <div className="flex justify-center">
