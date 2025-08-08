@@ -106,7 +106,7 @@ export default function LoginPage() {
                 </div>
               </div>
 
-              <p className="text-xs text-amber-600 font-mono">Connect your Abstract Global Wallet to start farming!</p>
+                              <p className="text-xs text-amber-600 font-mono">Connect your Abstract Global Wallet to start farming! 🚀</p>
             </CardContent>
           </Card>
         </div>
