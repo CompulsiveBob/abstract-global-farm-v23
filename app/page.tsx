@@ -167,6 +167,8 @@ function GameDashboard() {
         image: mintedSeed.image,
         type: mintedSeed.type
       })
+      // Add alert to confirm popup is triggered
+      alert(`🎉 POPUP TRIGGERED! ${mintedSeed.type} Seed minted!`)
     }
   }, [showMintPopup, mintedSeed])
 
@@ -1142,8 +1144,8 @@ function GameDashboard() {
             </div>
                 {/* Mint Popup */}
         {showMintPopup && mintedSeed && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-            <div className="bg-amber-50 border-4 border-amber-800 rounded-lg p-8 max-w-md mx-4 shadow-2xl animate-pulse">
+          <div className="fixed inset-0 bg-red-500 flex items-center justify-center z-[9999]">
+            <div className="bg-yellow-200 border-8 border-red-800 rounded-lg p-8 max-w-md mx-4 shadow-2xl">
               <div className="text-center">
                 <div className="mb-4 flex justify-center">
                   {/* Test with hardcoded image first */}
