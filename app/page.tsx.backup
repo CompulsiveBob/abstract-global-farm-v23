@@ -158,6 +158,18 @@ function GameDashboard() {
   const [showMintPopup, setShowMintPopup] = useState(false)
   const [mintedSeed, setMintedSeed] = useState<{type: string, rarity: string, emoji: string, image?: string} | null>(null)
 
+  // Debug useEffect for mint popup
+  useEffect(() => {
+    if (showMintPopup && mintedSeed) {
+      console.log('🎨 POPUP DEBUG:', {
+        showMintPopup,
+        mintedSeed,
+        image: mintedSeed.image,
+        type: mintedSeed.type
+      })
+    }
+  }, [showMintPopup, mintedSeed])
+
   const [plants, setPlants] = useState<
     Array<{
       id: string
@@ -298,11 +310,19 @@ function GameDashboard() {
         }
       }
       
+      const seedImage = getSeedImage(seedType)
+      console.log('🎯 MINTING DEBUG:', {
+        seedType,
+        seedImage,
+        fullPath: seedImage,
+        rarity,
+        emoji
+      })
       setMintedSeed({ 
         type: seedType, 
         rarity, 
         emoji,
-        image: getSeedImage(seedType)
+        image: seedImage
       })
       setShowMintPopup(true)
 
@@ -1120,22 +1140,35 @@ function GameDashboard() {
                 </Button>
               </div>
             </div>
-        {/* Mint Popup */}
+                {/* Mint Popup */}
         {showMintPopup && mintedSeed && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
             <div className="bg-amber-50 border-4 border-amber-800 rounded-lg p-8 max-w-md mx-4 shadow-2xl animate-pulse">
               <div className="text-center">
-                {mintedSeed.image && (
-                  <div className="mb-4 flex justify-center">
-                    <Image
-                      src={mintedSeed.image}
-                      alt={`${mintedSeed.type} Seed`}
-                      width={120}
-                      height={120}
-                      className="pixelated animate-bounce"
-                    />
-                  </div>
-                )}
+                <div className="mb-4 flex justify-center">
+                  {/* Test with hardcoded image first */}
+                  <img
+                    src="/images/corn-seed.png"
+                    alt="Test Corn Seed"
+                    width={60}
+                    height={60}
+                    className="pixelated mr-2"
+                    style={{ imageRendering: 'pixelated' }}
+                    onLoad={() => console.log('✅ Test image loaded')}
+                    onError={(e) => console.log('❌ Test image failed:', e)}
+                  />
+                  {/* Dynamic image */}
+                  <img
+                    src={mintedSeed.image || "/images/corn-seed.png"}
+                    alt={`${mintedSeed.type} Seed`}
+                    width={120}
+                    height={120}
+                    className="pixelated animate-bounce"
+                    style={{ imageRendering: 'pixelated' }}
+                    onLoad={() => console.log('✅ Image loaded successfully:', mintedSeed.image)}
+                    onError={(e) => console.log('❌ Image failed to load:', mintedSeed.image, e)}
+                  />
+                </div>
                 <div className="text-6xl mb-4 animate-bounce">
                   {mintedSeed.emoji}
                 </div>
