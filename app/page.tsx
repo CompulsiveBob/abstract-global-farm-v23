@@ -158,6 +158,18 @@ function GameDashboard() {
   const [showMintPopup, setShowMintPopup] = useState(false)
   const [mintedSeed, setMintedSeed] = useState<{type: string, rarity: string, emoji: string, image?: string} | null>(null)
 
+  // Debug useEffect for mint popup
+  useEffect(() => {
+    if (showMintPopup && mintedSeed) {
+      console.log('🎨 POPUP DEBUG:', {
+        showMintPopup,
+        mintedSeed,
+        image: mintedSeed.image,
+        type: mintedSeed.type
+      })
+    }
+  }, [showMintPopup, mintedSeed])
+
   const [plants, setPlants] = useState<
     Array<{
       id: string
@@ -299,7 +311,13 @@ function GameDashboard() {
       }
       
       const seedImage = getSeedImage(seedType)
-      console.log('Minting seed:', seedType, 'with image:', seedImage)
+      console.log('🎯 MINTING DEBUG:', {
+        seedType,
+        seedImage,
+        fullPath: seedImage,
+        rarity,
+        emoji
+      })
       setMintedSeed({ 
         type: seedType, 
         rarity, 
@@ -1122,7 +1140,7 @@ function GameDashboard() {
                 </Button>
               </div>
             </div>
-        {/* Mint Popup */}
+                {/* Mint Popup */}
         {showMintPopup && mintedSeed && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
             <div className="bg-amber-50 border-4 border-amber-800 rounded-lg p-8 max-w-md mx-4 shadow-2xl animate-pulse">
