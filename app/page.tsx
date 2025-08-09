@@ -280,7 +280,15 @@ function GameDashboard() {
 
       setNfts((prev) => [...prev, seedNFT])
 
-      alert(`🎉 Minted a ${rarity} ${seedType} Seed NFT!`)
+      // Set minted seed for popup
+      setMintedSeed({ type: seedType, rarity, emoji })
+      setShowMintPopup(true)
+
+      // Auto-hide popup after 3 seconds
+      setTimeout(() => {
+        setShowMintPopup(false)
+        setMintedSeed(null)
+      }, 3000)
     } else {
       alert("Not enough $DIRT! You need 15 $DIRT to mint a seed NFT.")
     }
@@ -1090,7 +1098,30 @@ function GameDashboard() {
                 </Button>
               </div>
             </div>
+        {/* Mint Popup */}
+        {showMintPopup && mintedSeed && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+            <div className="bg-amber-50 border-4 border-amber-800 rounded-lg p-8 max-w-md mx-4 shadow-2xl animate-pulse">
+              <div className="text-center">
+                <div className="text-6xl mb-4 animate-bounce">
+                  {mintedSeed.emoji}
+                </div>
+                <h3 className="text-2xl font-bold text-amber-900 font-mono mb-4">
+                  🎉 SEED MINTED! ��
+                </h3>
+                <p className="text-amber-800 font-mono mb-2 text-lg">
+                  {mintedSeed.type} Seed
+                </p>
+                <p className="text-amber-700 font-mono mb-6 text-sm">
+                  Rarity: {mintedSeed.rarity}
+                </p>
+                <div className="text-2xl mb-4">
+                  🎺 🎺 🎺
+                </div>
+              </div>
+            </div>
           </div>
+        )}          </div>
         )}
       </main>
     </div>
