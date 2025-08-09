@@ -280,7 +280,28 @@ function GameDashboard() {
 
       setNfts((prev) => [...prev, seedNFT])
 
-      // Set minted seed for popup
+      // Set minted seed for popup with custom image mapping
+      const getSeedImage = (type: string) => {
+        switch (type) {
+          case "Corn":
+            return "/images/gugo-farmer.png" // Corn farmer
+          case "Carrot":
+            return "/images/bearish-bear.png" // Carrot farmer
+          case "Sunflower":
+            return "/images/gugo-farmer.png" // Sunflower farmer
+          case "Cannabis":
+            return "/images/gugo-farmer.png" // Cannabis farmer
+          default:
+            return "/images/gugo-farmer.png" // Fallback
+        }
+      }
+      
+      setMintedSeed({ 
+        type: seedType, 
+        rarity, 
+        emoji,
+        image: getSeedImage(seedType)
+      })
       setMintedSeed({ type: seedType, rarity, emoji })
       setShowMintPopup(true)
 
