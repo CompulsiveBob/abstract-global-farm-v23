@@ -1128,12 +1128,13 @@ function GameDashboard() {
             <div className="bg-amber-50 border-4 border-amber-800 rounded-lg p-8 max-w-md mx-4 shadow-2xl animate-pulse">
               <div className="text-center">
                 <div className="mb-4 flex justify-center">
-                  <Image
+                  <img
                     src={mintedSeed.image || "/images/corn-seed.png"}
                     alt={`${mintedSeed.type} Seed`}
                     width={120}
                     height={120}
                     className="pixelated animate-bounce"
+                    style={{ imageRendering: 'pixelated' }}
                   />
                 </div>
                 <div className="text-6xl mb-4 animate-bounce">
