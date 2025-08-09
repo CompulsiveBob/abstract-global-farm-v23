@@ -298,11 +298,13 @@ function GameDashboard() {
         }
       }
       
+      const seedImage = getSeedImage(seedType)
+      console.log('Minting seed:', seedType, 'with image:', seedImage)
       setMintedSeed({ 
         type: seedType, 
         rarity, 
         emoji,
-        image: getSeedImage(seedType)
+        image: seedImage
       })
       setShowMintPopup(true)
 
@@ -1125,17 +1127,15 @@ function GameDashboard() {
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
             <div className="bg-amber-50 border-4 border-amber-800 rounded-lg p-8 max-w-md mx-4 shadow-2xl animate-pulse">
               <div className="text-center">
-                {mintedSeed.image && (
-                  <div className="mb-4 flex justify-center">
-                    <Image
-                      src={mintedSeed.image}
-                      alt={`${mintedSeed.type} Seed`}
-                      width={120}
-                      height={120}
-                      className="pixelated animate-bounce"
-                    />
-                  </div>
-                )}
+                <div className="mb-4 flex justify-center">
+                  <Image
+                    src={mintedSeed.image || "/images/corn-seed.png"}
+                    alt={`${mintedSeed.type} Seed`}
+                    width={120}
+                    height={120}
+                    className="pixelated animate-bounce"
+                  />
+                </div>
                 <div className="text-6xl mb-4 animate-bounce">
                   {mintedSeed.emoji}
                 </div>
