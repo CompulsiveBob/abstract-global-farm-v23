@@ -1187,7 +1187,6 @@ function GameDashboard() {
               </div>
             </div>
           </div>
-        )}          </div>
         )}
       </main>
     </div>
