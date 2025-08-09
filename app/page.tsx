@@ -155,6 +155,8 @@ function GameDashboard() {
   const [showLoginPopup, setShowLoginPopup] = useState(true)
   const [showSeedShopPopup, setShowSeedShopPopup] = useState(false)
   const [showFarmPopup, setShowFarmPopup] = useState(false)
+  const [showMintPopup, setShowMintPopup] = useState(false)
+  const [mintedSeed, setMintedSeed] = useState<{type: string, rarity: string, emoji: string, image?: string} | null>(null)
 
   const [plants, setPlants] = useState<
     Array<{
@@ -284,15 +286,15 @@ function GameDashboard() {
       const getSeedImage = (type: string) => {
         switch (type) {
           case "Corn":
-            return "/images/gugo-farmer.png" // Corn farmer
+            return "/images/corn-seed.png"
           case "Carrot":
-            return "/images/bearish-bear.png" // Carrot farmer
+            return "/images/carrot-seed.png"
           case "Sunflower":
-            return "/images/gugo-farmer.png" // Sunflower farmer
+            return "/images/sunflower-seed.png"
           case "Cannabis":
-            return "/images/gugo-farmer.png" // Cannabis farmer
+            return "/images/cannabis-seed.png"
           default:
-            return "/images/gugo-farmer.png" // Fallback
+            return "/images/corn-seed.png" // Fallback to corn seed
         }
       }
       
@@ -302,7 +304,6 @@ function GameDashboard() {
         emoji,
         image: getSeedImage(seedType)
       })
-      setMintedSeed({ type: seedType, rarity, emoji })
       setShowMintPopup(true)
 
       // Auto-hide popup after 3 seconds
@@ -371,7 +372,7 @@ function GameDashboard() {
 
         // Action-specific effects on status bars
         const random = Math.random()
-        let outcome: "positive" | "negative" | "neutral"
+        let outcome: "positive" | "negative" | "neutral" = "neutral"
         let colorChange = 0
         let sizeChange = 0
         let intricacyChange = 0
@@ -1124,6 +1125,17 @@ function GameDashboard() {
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
             <div className="bg-amber-50 border-4 border-amber-800 rounded-lg p-8 max-w-md mx-4 shadow-2xl animate-pulse">
               <div className="text-center">
+                {mintedSeed.image && (
+                  <div className="mb-4 flex justify-center">
+                    <Image
+                      src={mintedSeed.image}
+                      alt={`${mintedSeed.type} Seed`}
+                      width={120}
+                      height={120}
+                      className="pixelated animate-bounce"
+                    />
+                  </div>
+                )}
                 <div className="text-6xl mb-4 animate-bounce">
                   {mintedSeed.emoji}
                 </div>
