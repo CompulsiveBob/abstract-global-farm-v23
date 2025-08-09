@@ -1146,31 +1146,28 @@ function GameDashboard() {
             <div className="bg-amber-50 border-4 border-amber-800 rounded-lg p-8 max-w-md mx-4 shadow-2xl animate-pulse">
               <div className="text-center">
                 <div className="mb-4 flex justify-center">
-                  <div className="text-center">
-                    <p className="text-sm text-red-600 mb-2">🔍 DEBUG: Images should show below</p>
-                    {/* Test with hardcoded image first */}
-                    <img
-                      src="/images/corn-seed.png"
-                      alt="Test Corn Seed"
-                      width={60}
-                      height={60}
-                      className="pixelated mr-2 border-2 border-red-500 bg-red-100"
-                      style={{ imageRendering: 'pixelated' }}
-                      onLoad={() => console.log('✅ Test image loaded')}
-                      onError={(e) => console.log('❌ Test image failed:', e)}
-                    />
-                    {/* Dynamic image */}
-                    <img
-                      src={mintedSeed.image || "/images/corn-seed.png"}
-                      alt={`${mintedSeed.type} Seed`}
-                      width={120}
-                      height={120}
-                      className="pixelated animate-bounce border-2 border-blue-500 bg-blue-100"
-                      style={{ imageRendering: 'pixelated' }}
-                      onLoad={() => console.log('✅ Image loaded successfully:', mintedSeed.image)}
-                      onError={(e) => console.log('❌ Image failed to load:', mintedSeed.image, e)}
-                    />
-                  </div>
+                  {/* Test with hardcoded image first */}
+                  <img
+                    src="/images/corn-seed.png"
+                    alt="Test Corn Seed"
+                    width={60}
+                    height={60}
+                    className="pixelated mr-2 border-4 border-red-500 bg-red-100"
+                    style={{ imageRendering: 'pixelated' }}
+                    onLoad={() => console.log('✅ Test image loaded')}
+                    onError={(e) => console.log('❌ Test image failed:', e)}
+                  />
+                  {/* Dynamic image */}
+                  <img
+                    src={mintedSeed.image || "/images/corn-seed.png"}
+                    alt={`${mintedSeed.type} Seed`}
+                    width={120}
+                    height={120}
+                    className="pixelated animate-bounce border-4 border-blue-500 bg-blue-100"
+                    style={{ imageRendering: 'pixelated' }}
+                    onLoad={() => console.log('✅ Image loaded successfully:', mintedSeed.image)}
+                    onError={(e) => console.log('❌ Image failed to load:', mintedSeed.image, e)}
+                  />
                 </div>
                 <div className="text-6xl mb-4 animate-bounce">
                   {mintedSeed.emoji}
