@@ -1146,6 +1146,18 @@ function GameDashboard() {
             <div className="bg-amber-50 border-4 border-amber-800 rounded-lg p-8 max-w-md mx-4 shadow-2xl animate-pulse">
               <div className="text-center">
                 <div className="mb-4 flex justify-center">
+                  {/* Test with hardcoded image first */}
+                  <img
+                    src="/images/corn-seed.png"
+                    alt="Test Corn Seed"
+                    width={60}
+                    height={60}
+                    className="pixelated mr-2"
+                    style={{ imageRendering: 'pixelated' }}
+                    onLoad={() => console.log('✅ Test image loaded')}
+                    onError={(e) => console.log('❌ Test image failed:', e)}
+                  />
+                  {/* Dynamic image */}
                   <img
                     src={mintedSeed.image || "/images/corn-seed.png"}
                     alt={`${mintedSeed.type} Seed`}
@@ -1153,6 +1165,8 @@ function GameDashboard() {
                     height={120}
                     className="pixelated animate-bounce"
                     style={{ imageRendering: 'pixelated' }}
+                    onLoad={() => console.log('✅ Image loaded successfully:', mintedSeed.image)}
+                    onError={(e) => console.log('❌ Image failed to load:', mintedSeed.image, e)}
                   />
                 </div>
                 <div className="text-6xl mb-4 animate-bounce">
